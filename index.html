@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tic-Tac-Toe AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <!-- Header -->
+        <header class="game-header">
+
+            <div>
+                <h1>🎮 Tic-Tac-Toe AI</h1>
+                <p>Human vs Intelligent AI</p>
+            </div>
+
+            <div class="ai-badge">
+                🧠 MINIMAX AI
+            </div>
+
+        </header>
+
+
+        <!-- Game Status -->
+        <div class="status-area">
+
+            <div id="status">
+                Your Turn — You are X
+            </div>
+
+        </div>
+
+
+        <!-- Game Board -->
+        <div class="board" id="board">
+
+            <button class="cell" data-index="0"></button>
+            <button class="cell" data-index="1"></button>
+            <button class="cell" data-index="2"></button>
+
+            <button class="cell" data-index="3"></button>
+            <button class="cell" data-index="4"></button>
+            <button class="cell" data-index="5"></button>
+
+            <button class="cell" data-index="6"></button>
+            <button class="cell" data-index="7"></button>
+            <button class="cell" data-index="8"></button>
+
+        </div>
+
+
+        <!-- Game Information -->
+       <div class="game-info">
+
+    <div class="info-card">
+        <span>👤</span>
+        <strong>You</strong>
+        <small>X</small>
+        <b id="humanScore">0</b>
+    </div>
+
+    <div class="info-card">
+        <span>🤖</span>
+        <strong>AI</strong>
+        <small>O</small>
+        <b id="aiScore">0</b>
+    </div>
+
+    <div class="info-card">
+        <span>🤝</span>
+        <strong>Draws</strong>
+        <small>—</small>
+        <b id="drawScore">0</b>
+    </div>
+
+</div>
+
+        </div>
+
+
+        <!-- Reset Button -->
+        <button class="reset-btn" onclick="resetGame()">
+            🔄 New Game
+        </button>
+
+
+        <!-- Footer -->
+        <footer>
+            CodeSoft Task 2 • Tic-Tac-Toe AI
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

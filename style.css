@@ -1,0 +1,528 @@
+/* ================================
+   TIC-TAC-TOE AI - PREMIUM UI
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.35), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.30), transparent 30%),
+        linear-gradient(135deg, #070b18, #111827 50%, #080b16);
+
+    color: white;
+
+    overflow-x: hidden;
+}
+
+
+/* ================================
+   MAIN GAME CARD
+   ================================ */
+
+.game-container {
+    width: 100%;
+    max-width: 520px;
+
+    padding: 30px;
+
+    background: rgba(15, 23, 42, 0.78);
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 30px;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    text-align: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Decorative glow */
+
+.game-container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -120px;
+    right: -100px;
+
+    background: rgba(99, 102, 241, 0.30);
+
+    filter: blur(50px);
+
+    border-radius: 50%;
+}
+
+.game-container::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    bottom: -100px;
+    left: -80px;
+
+    background: rgba(168, 85, 247, 0.22);
+
+    filter: blur(50px);
+
+    border-radius: 50%;
+}
+
+
+/* Keep content above decorations */
+
+.game-container > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ================================
+   HEADER
+   ================================ */
+
+.game-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.game-header h1 {
+    color: #ffffff;
+
+    font-size: 27px;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+
+    text-shadow:
+        0 0 20px rgba(129, 140, 248, 0.35);
+}
+
+.game-header p {
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+/* AI badge */
+
+.ai-badge {
+    padding: 9px 13px;
+
+    border-radius: 12px;
+
+    background: rgba(99, 102, 241, 0.12);
+
+    border: 1px solid rgba(129, 140, 248, 0.30);
+
+    color: #a5b4fc;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 0 20px rgba(99, 102, 241, 0.10);
+}
+
+
+/* ================================
+   STATUS
+   ================================ */
+
+.status-area {
+    margin-bottom: 22px;
+}
+
+#status {
+    padding: 14px 18px;
+
+    border-radius: 14px;
+
+    background: rgba(30, 41, 59, 0.75);
+
+    border: 1px solid rgba(148, 163, 184, 0.12);
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+/* ================================
+   GAME BOARD
+   ================================ */
+
+.board {
+    width: 350px;
+    max-width: 100%;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+
+/* Individual cell */
+
+.cell {
+    aspect-ratio: 1 / 1;
+
+    border: 1px solid rgba(129, 140, 248, 0.16);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 41, 59, 0.95),
+            rgba(15, 23, 42, 0.95)
+        );
+
+    color: #818cf8;
+
+    font-size: 52px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+/* Hover */
+
+.cell:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(129, 140, 248, 0.55);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(49, 46, 129, 0.65),
+            rgba(30, 41, 59, 0.95)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(79, 70, 229, 0.20),
+        0 0 25px rgba(99, 102, 241, 0.10);
+}
+
+
+/* Click */
+
+.cell:active {
+    transform: scale(0.94);
+}
+
+
+/* ================================
+   WINNER
+   ================================ */
+
+.cell.winner {
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+
+    border-color: rgba(134, 239, 172, 0.8);
+
+    color: white;
+
+    transform: scale(1.04);
+
+    box-shadow:
+        0 0 25px rgba(34, 197, 94, 0.45),
+        0 12px 30px rgba(34, 197, 94, 0.25);
+
+    animation: winnerPulse 1s infinite alternate;
+}
+
+
+@keyframes winnerPulse {
+
+    from {
+        box-shadow:
+            0 0 15px rgba(34, 197, 94, 0.35);
+    }
+
+    to {
+        box-shadow:
+            0 0 35px rgba(34, 197, 94, 0.65);
+    }
+}
+
+
+/* ================================
+   PLAYER INFORMATION
+   ================================ */
+
+.game-info {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 24px;
+}
+
+.info-card {
+    width: 135px;
+
+    padding: 14px;
+
+    border-radius: 16px;
+
+    background: rgba(30, 41, 59, 0.65);
+
+    border: 1px solid rgba(148, 163, 184, 0.12);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    transition: 0.2s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(129, 140, 248, 0.35);
+
+    background: rgba(49, 46, 129, 0.25);
+}
+
+.info-card span {
+    font-size: 21px;
+}
+
+.info-card strong {
+    color: #e2e8f0;
+
+    font-size: 14px;
+}
+
+.info-card small {
+    color: #818cf8;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+/* ================================
+   NEW GAME BUTTON
+   ================================ */
+
+.reset-btn {
+    width: 100%;
+
+    margin-top: 24px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #7c3aed
+        );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    box-shadow:
+        0 10px 25px rgba(79, 70, 229, 0.30);
+}
+
+.reset-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(79, 70, 229, 0.45);
+}
+
+.reset-btn:active {
+    transform: scale(0.97);
+}
+
+
+/* ================================
+   FOOTER
+   ================================ */
+
+footer {
+    margin-top: 20px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* ================================
+   MOBILE RESPONSIVE
+   ================================ */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .game-container {
+        padding: 22px 18px;
+
+        border-radius: 24px;
+    }
+
+    .game-header {
+        align-items: flex-start;
+    }
+
+    .game-header h1 {
+        font-size: 21px;
+    }
+
+    .game-header p {
+        font-size: 11px;
+    }
+
+    .ai-badge {
+        font-size: 8px;
+
+        padding: 7px 8px;
+    }
+
+    .board {
+        gap: 9px;
+    }
+
+    .cell {
+        font-size: 40px;
+
+        border-radius: 15px;
+    }
+
+   .game-info {
+    gap: 8px;
+}
+
+.info-card {
+    width: 100px;
+    padding: 11px 6px;
+}
+}
+#status {
+    position: relative;
+}
+
+#status.ai-thinking {
+    animation: thinking 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes thinking {
+    from {
+        opacity: 0.55;
+        transform: scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.info-card b {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    color: #a5b4fc;
+
+    text-shadow:
+        0 0 15px rgba(129, 140, 248, 0.35);
+}
