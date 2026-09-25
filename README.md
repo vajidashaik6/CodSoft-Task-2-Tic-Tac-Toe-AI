@@ -9,6 +9,9 @@ This project was developed as **CodSoft Task 2**.
 Tic-Tac-Toe AI is a browser-based game where a player can play Tic-Tac-Toe against an AI opponent.
 
 The project provides an interactive game board, player and AI turns, game status updates, and a clean modern interface.
+## 🖥️ Project Screenshot
+
+![Tic-Tac-Toe AI Screenshot](tic-tac-toe-screenshot.png)
 
 ## ✨ Features
 
